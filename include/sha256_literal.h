@@ -249,6 +249,9 @@ template<size_t N> [[maybe_unused]] static constexpr auto computeStr(char const 
 #ifdef __clang__
 #pragma GCC diagnostic ignored "-Wgnu-string-literal-operator-template"
 #endif
+#ifdef __GNUC__
+#pragma GCC diagnostic ignored "-Wgnu-string-literal-operator-template"
+#endif
 template<typename CharT, CharT... Cs> static constexpr auto operator"" _sha256()
 {
     static_assert(std::is_same<CharT, char>::value, "only support 8-bit strings");
