@@ -6,12 +6,6 @@
 #include <cstdint>
 #include <cstring>
 
-#if defined(_MSC_VER)
-#define FORCEINLINE __forceinline
-#else
-#define FORCEINLINE __attribute__((always_inline))
-#endif
-
 static const uint32_t SHA256_K[64] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be,
                                       0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa,
                                       0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, 0x27b70a85,
@@ -27,43 +21,43 @@ static uint32_t rotr(uint32_t const v, int off) { return (v >> off) | (v << (32 
 
 static void transform(StateType& s, uint8_t const* data)
 {
-    WType W = {0};
-#pragma unroll
+    WType w = {0};
+
     for (size_t i = 0; i < 16; ++i)
     {
-        W[i] = Intmem::loaduBe<uint32_t>(&data[i * sizeof(uint32_t)]);
+        w[i] = Intmem::loaduBe<uint32_t>(&data[i * sizeof(uint32_t)]);
     }
 
     for (size_t i = 16; i < 64; ++i)
     {
-        const uint32_t s0 = rotr(W[i - 15], 7) ^ rotr(W[i - 15], 18) ^ (W[i - 15] >> 3);
-        const uint32_t s1 = rotr(W[i - 2], 17) ^ rotr(W[i - 2], 19) ^ (W[i - 2] >> 10);
-        W[i] = (W[i - 16] + s0 + W[i - 7] + s1);
+        const uint32_t S0 = rotr(w[i - 15], 7) ^ rotr(w[i - 15], 18) ^ (w[i - 15] >> 3);
+        const uint32_t S1 = rotr(w[i - 2], 17) ^ rotr(w[i - 2], 19) ^ (w[i - 2] >> 10);
+        w[i] = (w[i - 16] + S0 + w[i - 7] + S1);
     }
 
-    StateType InS = s;
+    StateType inS = s;
     for (size_t i = 0; i < 64; ++i)
     {
-        uint32_t s0 = rotr(InS[0], 2) ^ rotr(InS[0], 13) ^ rotr(InS[0], 22);
-        uint32_t maj = (InS[0] & InS[1]) ^ (InS[0] & InS[2]) ^ (InS[1] & InS[2]);
-        uint32_t t2 = s0 + maj;
-        uint32_t s1 = rotr(InS[4], 6) ^ rotr(InS[4], 11) ^ rotr(InS[4], 25);
-        uint32_t ch = (InS[4] & InS[5]) ^ ((~InS[4]) & InS[6]);
-        uint32_t t1 = InS[7] + s1 + ch + SHA256_K[i] + W[i];
+        uint32_t const s0 = rotr(inS[0], 2) ^ rotr(inS[0], 13) ^ rotr(inS[0], 22);
+        uint32_t const maj = (inS[0] & inS[1]) ^ (inS[0] & inS[2]) ^ (inS[1] & inS[2]);
+        uint32_t const t2 = s0 + maj;
+        uint32_t const s1 = rotr(inS[4], 6) ^ rotr(inS[4], 11) ^ rotr(inS[4], 25);
+        uint32_t const ch = (inS[4] & inS[5]) ^ ((~inS[4]) & inS[6]);
+        uint32_t const t1 = inS[7] + s1 + ch + SHA256_K[i] + w[i];
 
-        InS[7] = InS[6];
-        InS[6] = InS[5];
-        InS[5] = InS[4];
-        InS[4] = (InS[3] + t1);
-        InS[3] = InS[2];
-        InS[2] = InS[1];
-        InS[1] = InS[0];
-        InS[0] = (t1 + t2);
+        inS[7] = inS[6];
+        inS[6] = inS[5];
+        inS[5] = inS[4];
+        inS[4] = (inS[3] + t1);
+        inS[3] = inS[2];
+        inS[2] = inS[1];
+        inS[1] = inS[0];
+        inS[0] = (t1 + t2);
     }
 
     for (size_t i = 0; i < std::tuple_size<StateType>(); ++i)
     {
-        s[i] += InS[i];
+        s[i] += inS[i];
     }
 }
 

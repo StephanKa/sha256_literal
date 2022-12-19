@@ -1,4 +1,4 @@
-Checks: -*,clang-analyzer-*,cert*,readability-magic-numbers*,readability-identifier-naming*,readability-container-size-empty
+Checks: -*,clang-analyzer-*,cert*,readability-magic-numbers*,readability-identifier-naming*,readability-container-size-empty,misc-const-correctness
 CheckOptions:
   - key: readability-identifier-naming.TypedefCase
     value: CamelCase
@@ -24,3 +24,7 @@ CheckOptions:
     value: CamelCase
   - key: readability-identifier-naming.LocalConstantCase
     value: UPPER_CASE
+  - key: misc-const-correctness.WarnPointersAsValues
+    value: true
+  - key: misc-const-correctness.TransformPointersAsValues
+    value: true

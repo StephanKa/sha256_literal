@@ -142,9 +142,9 @@ static constexpr HashType stateToHash(StateType const s)
     for (size_t i = 0; i < std::tuple_size<StateType>(); ++i)
     {
         uint32_t const V = s[i];
-        itRet[i * sizeof(uint32_t)] = (V >> 24) & 0xff;
-        itRet[i * sizeof(uint32_t) + 1] = (V >> 16) & 0xff;
-        itRet[i * sizeof(uint32_t) + 2] = (V >> 8) & 0xff;
+        itRet[i * sizeof(uint32_t)] = static_cast<uint8_t>(V >> 24u) & 0xff;
+        itRet[i * sizeof(uint32_t) + 1] = (V >> 16u) & 0xff;
+        itRet[i * sizeof(uint32_t) + 2] = (V >> 8u) & 0xff;
         itRet[i * sizeof(uint32_t) + 3] = (V) &0xff;
     }
     return ret;
@@ -247,9 +247,6 @@ template<size_t N> [[maybe_unused]] static constexpr auto computeStr(char const 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpedantic"
 #ifdef __clang__
-#pragma GCC diagnostic ignored "-Wgnu-string-literal-operator-template"
-#endif
-#ifdef __GNUC__
 #pragma GCC diagnostic ignored "-Wgnu-string-literal-operator-template"
 #endif
 template<typename CharT, CharT... Cs> static constexpr auto operator"" _sha256()
