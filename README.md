@@ -1,28 +1,32 @@
 Header-only constexpr SHA256 C++ 14 literal
 ===========================================
 
-THis is a C++14 constexpr implementation of SHA256, which allows (among others)
+[![C/C++ CMake CI](https://github.com/StephanKa/sha256_literal/actions/workflows/build_cmake.yml/badge.svg?branch=master)](https://github.com/StephanKa/sha256_literal/actions/workflows/build_cmake.yml)
+
+THis is a C++17 constexpr implementation of SHA256, which allows (among others)
 the usage of a "_sha256" literal to get compile-time SHA256 hashes:
 
-.. code:: cpp
+```cpp
 
     #include "sha256_literal.h"
 
     static constexpr sha256::HashType H = "mypassword"_sha256;
     // HashType is a std::array<uint8_t, 32>
+```
 
 More "low-level" API are also provided:
 
-.. code:: cpp
+```cpp
 
     static constexpr auto H0 = sha256::compute_str("hello");
     static constexpr auto H1 = sha256::compute({'A','B'});
+```
 
 This can be used for instance to compare user-provided passwords to a
 hard-coded one in a binary (although this is not recommended to do so
 directly, passwords should always be salted when hashed!):
 
-.. code:: cpp
+```cpp
 
     #include "sha256.h"
     #include "sha256_literal.h"
@@ -31,17 +35,11 @@ directly, passwords should always be salted when hashed!):
       static constexpr auto PASSWORD_HASH = "myverysecretpassword"_sha256;
       return sha256::compute(pwd, strlen(reinterpret_cast<const char*>(pwd))) == PASSWORD_HASH;
     }
+```
 
 See the ``tests.cpp`` file for tests, and the ``example.cpp`` for a usage example.
 
 A runtime implementation of SHA256 is also provided in ``sha256.cpp``. This
 does not respect the NIST API standards, and is only there for convience.
 
-This has been tested with clang 4.0 and GCC 6.3 under linux.
-
-Licensing
----------
-
-This code is licensed under GPLv3, except for the QBDI project
-(https://github.com/QBDI/QBDI/) that uses it for benchmarking purpose where we
-tolerate the usage of this code under the Apache2 license.
+This has been tested with clang 12.0 | 13.0 | 14.0 | 15.0 and GCC 10 | 11 under linux.

@@ -19,7 +19,7 @@ jobs:
       fail-fast: false  # 'false' means Don't stop matrix workflows even if some matrix entry fails.
       matrix:
         os: [ubuntu-22.04]
-        cxx_std: [14, 17, 20]
+        cxx_std: [17, 20]
         compiler: [ {name: 'GCC 10', cpp: g++-10, c: gcc-10, pkgs: 'gcc-10 g++-10 lib32gcc-10-dev gcc-multilib'},
                     {name: 'GCC 11', cpp: g++-11, c: gcc-11, pkgs: 'gcc-11 g++-11 lib32gcc-11-dev gcc-multilib'},
                     {name: 'Clang 12', cpp: clang++-12, c: clang-12, pkgs: 'clang-12 llvm-12'},
