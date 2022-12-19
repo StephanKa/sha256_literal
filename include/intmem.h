@@ -15,16 +15,16 @@ static_assert(sizeof(uint32_t) == sizeof(unsigned long), "unsigned long isn't 32
 static uint32_t bswap(uint32_t v) { return _byteswap_ulong(v); }
 static uint64_t bswap(uint64_t v) { return _byteswap_uint64(v); }
 #else
-[[maybe_unused]] static uint8_t bswap(uint8_t v) { return v; }
-[[maybe_unused]] static uint16_t bswap(uint16_t v) { return __builtin_bswap16(v); }
-[[maybe_unused]] static uint32_t bswap(uint32_t v) { return __builtin_bswap32(v); }
-[[maybe_unused]] static uint64_t bswap(uint64_t v) { return __builtin_bswap64(v); }
+static uint8_t bswap(uint8_t v) { return v; }
+static uint16_t bswap(uint16_t v) { return __builtin_bswap16(v); }
+static uint32_t bswap(uint32_t v) { return __builtin_bswap32(v); }
+static uint64_t bswap(uint64_t v) { return __builtin_bswap64(v); }
 #endif
 
-[[maybe_unused]] static int8_t bswap(int8_t v) { return v; }
-[[maybe_unused]] static int16_t bswap(int16_t v) { return static_cast<int16_t>(bswap(static_cast<uint16_t>(v))); }
-[[maybe_unused]] static int32_t bswap(int32_t v) { return static_cast<int32_t>(bswap(static_cast<uint32_t>(v))); }
-[[maybe_unused]] static int64_t bswap(int64_t v) { return static_cast<int64_t>(bswap(static_cast<uint64_t>(v))); }
+static int8_t bswap(int8_t v) { return v; }
+static int16_t bswap(int16_t v) { return static_cast<int16_t>(bswap(static_cast<uint16_t>(v))); }
+static int32_t bswap(int32_t v) { return static_cast<int32_t>(bswap(static_cast<uint32_t>(v))); }
+static int64_t bswap(int64_t v) { return static_cast<int64_t>(bswap(static_cast<uint64_t>(v))); }
 
 template<class T> static T loadu(const void* ptr)
 {
