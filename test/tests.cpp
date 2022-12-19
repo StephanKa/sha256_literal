@@ -2,15 +2,15 @@
 
 #include <catch2/catch_all.hpp>
 
-using Sha256Literal::compute;
-using Sha256Literal::computeStr;
-using Sha256Literal::HashType;
+using sha256_literal::compute;
+using sha256_literal::computeStr;
+using sha256_literal::HashType;
 
-static constexpr bool eq(HashType const A, HashType const B)
+static constexpr bool eq(HashType const a, HashType const b)
 {
     for (size_t i = 0; i < std::tuple_size<HashType>(); ++i)
     {
-        if (A[i] != B[i])
+        if (a[i] != b[i])
         {
             return false;
         }

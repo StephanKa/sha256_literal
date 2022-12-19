@@ -25,7 +25,7 @@ static void transform(StateType& s, uint8_t const* data)
 
     for (size_t i = 0; i < 16; ++i)
     {
-        w[i] = Intmem::loaduBe<uint32_t>(&data[i * sizeof(uint32_t)]);
+        w[i] = intmem::loaduBe<uint32_t>(&data[i * sizeof(uint32_t)]);
     }
 
     for (size_t i = 16; i < 64; ++i)
@@ -61,7 +61,7 @@ static void transform(StateType& s, uint8_t const* data)
     }
 }
 
-Sha256::HashType Sha256::compute(const uint8_t* data, const uint64_t len)
+sha256::HashType sha256::compute(const uint8_t* data, const uint64_t len)
 {
     StateType state = {0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19};
     const uint64_t BLOCK_COUNT = len / sizeof(BlockType);
@@ -81,14 +81,14 @@ Sha256::HashType Sha256::compute(const uint8_t* data, const uint64_t len)
         transform(state, lastBlock);
         memset(&lastBlock, 0, sizeof(lastBlock));
     }
-    Intmem::storeuBe(&lastBlock[56], len << 3);
+    intmem::storeuBe(&lastBlock[56], len << 3);
     transform(state, lastBlock);
 
     HashType ret;
     static_assert(sizeof(HashType) == sizeof(StateType), "bad definition of HashType");
     for (size_t i = 0; i < 8; ++i)
     {
-        Intmem::storeuBe(&ret[i * sizeof(uint32_t)], state[i]);
+        intmem::storeuBe(&ret[i * sizeof(uint32_t)], state[i]);
     }
     return ret;
 }

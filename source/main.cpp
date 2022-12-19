@@ -12,8 +12,8 @@ int main(int argc, char** argv)
     }
 
     static constexpr auto PASSWORD_HASH = "myverysecretpassword"_sha256;
-    const uint8_t* pwd = reinterpret_cast<const uint8_t*>(argv[1]);
-    if (Sha256::compute(pwd, strlen(reinterpret_cast<const char*>(pwd))) == PASSWORD_HASH)
+    const uint8_t* const PWD = reinterpret_cast<const uint8_t*>(argv[1]);
+    if (sha256::compute(PWD, strlen(reinterpret_cast<const char*>(PWD))) == PASSWORD_HASH)
     {
         fmt::print("good password!");
         return 0;

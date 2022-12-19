@@ -4,7 +4,7 @@
 #include <cstring>
 #include <type_traits>
 
-namespace Intmem {
+namespace intmem {
 
 // bswap functions. Uses GCC/clang/MSVC intrinsics.
 #ifdef _MSC_VER
@@ -68,4 +68,4 @@ template<class T> static void storeLe(T* ptr, T const v) { *ptr = bswapLe(v); }
 
 template<class T> static void storeBe(T* ptr, T const v) { *ptr = bswapBe(v); }
 
-}  // namespace Intmem
+}  // namespace intmem

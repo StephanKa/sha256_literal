@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <cstring>
 
-namespace Sha256Literal {
+namespace sha256_literal {
 
 static constexpr uint32_t SHA256_K[64] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be,
                                           0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa,
@@ -18,7 +18,7 @@ using BlockType = std::array<uint32_t, 16>;
 using WType = std::array<uint32_t, 64>;
 using HashType = std::array<uint8_t, sizeof(StateType)>;
 
-namespace Details {
+namespace details {
 
 template<class F, class T, size_t N, class... Args> static constexpr auto mapZip(F const f, std::array<T, N> const data, Args const... arrays)
 {
@@ -226,23 +226,23 @@ template<size_t N, typename T, size_t N_> [[maybe_unused]] static constexpr auto
 
 template<typename T, size_t N> [[maybe_unused]] static constexpr auto getArray(T const (&data)[N]) { return getArray<N>(data); }
 
-}  // namespace Details
+}  // namespace details
 
-template<size_t N> static constexpr auto compute(std::array<uint8_t, N> const data) { return Details::sha256(data); }
+template<size_t N> static constexpr auto compute(std::array<uint8_t, N> const data) { return details::sha256(data); }
 
 template<size_t N> static constexpr auto compute(char const (&data)[N])
 {
-    auto const AR = Details::getArray(data);
-    return Details::sha256(Details::map(Details::charToU8, AR));
+    auto const AR = details::getArray(data);
+    return details::sha256(details::map(details::charToU8, AR));
 }
 
 template<size_t N> [[maybe_unused]] static constexpr auto computeStr(char const (&data)[N])
 {
-    auto const AR = Details::getArray<N - 1>(data);
-    return Details::sha256(Details::map(Details::charToU8, AR));
+    auto const AR = details::getArray<N - 1>(data);
+    return details::sha256(details::map(details::charToU8, AR));
 }
 
-}  // namespace Sha256Literal
+}  // namespace sha256_literal
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpedantic"
@@ -253,6 +253,6 @@ template<typename CharT, CharT... Cs> static constexpr auto operator"" _sha256()
 {
     static_assert(std::is_same<CharT, char>::value, "only support 8-bit strings");
     const char data[] = {Cs...};
-    return Sha256Literal::compute(data);
+    return sha256_literal::compute(data);
 }
 #pragma GCC diagnostic pop

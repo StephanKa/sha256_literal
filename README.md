@@ -28,8 +28,8 @@ directly, passwords should always be salted when hashed!):
     #include "sha256_literal.h"
 
     bool isGoodPwd(const char* Pwd) {
-      static constexpr auto PasswordHash = "myverysecretpassword"_sha256;
-      return sha256::compute((const uint8_t*) Pwd, strlen(Pwd)) == PasswordHash;
+      static constexpr auto PASSWORD_HASH = "myverysecretpassword"_sha256;
+      return sha256::compute(pwd, strlen(reinterpret_cast<const char*>(pwd))) == PASSWORD_HASH;
     }
 
 See the ``tests.cpp`` file for tests, and the ``example.cpp`` for a usage example.
