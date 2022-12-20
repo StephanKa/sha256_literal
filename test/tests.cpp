@@ -1,13 +1,12 @@
 #include "sha256_literal.h"
 
-#include <algorithm>
 #include <catch2/catch_all.hpp>
 
 using sha256_literal::compute;
 using sha256_literal::computeStr;
 using sha256_literal::HashType;
 
-static constexpr bool eq(HashType const a, HashType const b) { return std::equal(a.cbegin(), a.cend(), b.cbegin(), b.cend()); }
+static bool eq(HashType const a, HashType const b) { return std::equal(a.cbegin(), a.cend(), b.cbegin(), b.cend()); }
 
 TEST_CASE("SHA256", "TestDifferentVectors")
 {
