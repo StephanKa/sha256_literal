@@ -1,4 +1,4 @@
-Header-only constexpr SHA256 C++ 14 literal
+Header-only constexpr SHA256 C++ 17 literal
 ===========================================
 
 [![C/C++ CMake CI](https://github.com/StephanKa/sha256_literal/actions/workflows/build_cmake.yml/badge.svg?branch=master)](https://github.com/StephanKa/sha256_literal/actions/workflows/build_cmake.yml)
