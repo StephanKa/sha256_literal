@@ -154,58 +154,6 @@
         "CXX": "g++-12",
         "CC": "gcc-12"
       }
-    },
-    {
-      "name": "windows-2019-debug",
-      "displayName": "Windows x64 Debug",
-      "generator": "Visual Studio 16 2019",
-      "binaryDir": "${sourceDir}/build/debug",
-      "architecture": {
-        "value": "x64",
-        "strategy": "external"
-      },
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
-      }
-    },
-    {
-      "name": "windows-2019-release",
-      "displayName": "Windows x64 release",
-      "generator": "Visual Studio 16 2019",
-      "binaryDir": "${sourceDir}/build/debug",
-      "architecture": {
-        "value": "x64",
-        "strategy": "external"
-      },
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
-      }
-    },
-    {
-      "name": "windows-2022-debug",
-      "displayName": "Windows x64 Debug",
-      "generator": "Visual Studio 17 2022",
-      "binaryDir": "${sourceDir}/build/debug",
-      "architecture": {
-        "value": "x64",
-        "strategy": "external"
-      },
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
-      }
-    },
-    {
-      "name": "windows-2022-release",
-      "displayName": "Windows x64 release",
-      "generator": "Visual Studio 17 2022",
-      "binaryDir": "${sourceDir}/build/debug",
-      "architecture": {
-        "value": "x64",
-        "strategy": "external"
-      },
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
-      }
     }
   ],
   "buildPresets": [
@@ -264,22 +212,6 @@
     {
       "name": "gcc-12-release",
       "configurePreset": "gcc-12-release"
-    },
-    {
-      "name": "windows-2019-debug",
-      "configurePreset": "windows-2019-debug"
-    },
-    {
-      "name": "windows-2019-release",
-      "configurePreset": "windows-2019-release"
-    },
-    {
-      "name": "windows-2022-debug",
-      "configurePreset": "windows-2022-debug"
-    },
-    {
-      "name": "windows-2022-release",
-      "configurePreset": "windows-2022-release"
     }
   ],
   "testPresets": [
@@ -338,26 +270,6 @@
     {
       "name": "gcc-12-release",
       "configurePreset": "gcc-12-release"
-    },
-    {
-      "name": "windows-2019-debug",
-      "configurePreset": "windows-2019-debug",
-      "configuration": "Debug"
-    },
-    {
-      "name": "windows-2019-release",
-      "configurePreset": "windows-2019-release",
-      "configuration": "Release"
-    },
-    {
-      "name": "windows-2022-debug",
-      "configurePreset": "windows-2022-debug",
-      "configuration": "Debug"
-    },
-    {
-      "name": "windows-2022-release",
-      "configurePreset": "windows-2022-release",
-      "configuration": "Release"
     }
   ]
 }
