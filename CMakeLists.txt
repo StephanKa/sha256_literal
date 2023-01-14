@@ -1,8 +1,9 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.19)
 
 # Set the project name to your project name, my project isn't very descriptive
 PROJECT(sha256_literal CXX)
 SET(CMAKE_BUILD_PARALLEL_LEVEL 4)
+
 IF(NOT DEFINED CXX_STANDARD)
     SET(CMAKE_CXX_STANDARD 20)
 ELSE()
